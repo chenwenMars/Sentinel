@@ -70,6 +70,7 @@ public class BaseJulLogger {
                     handler = new DateFileLogHandler(fileName + ".%d", 1024 * 1024 * 200, 4, true);
                     handler.setFormatter(formatter);
                     handler.setEncoding(logCharSet);
+                    handler.setLevel(LogBase.getLogLevel());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -79,6 +80,7 @@ public class BaseJulLogger {
                     handler = new ConsoleHandler();
                     handler.setFormatter(formatter);
                     handler.setEncoding(logCharSet);
+                    handler.setLevel(LogBase.getLogLevel());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -90,7 +92,9 @@ public class BaseJulLogger {
         if (handler != null) {
             disableOtherHandlers(heliumRecordLog, handler);
         }
-        heliumRecordLog.setLevel(Level.ALL);
+
+        // Set log level to INFO by default
+        heliumRecordLog.setLevel(LogBase.getLogLevel());
         return handler;
     }
 
